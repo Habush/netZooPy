@@ -127,7 +127,9 @@ def compute_panda_gpu(
         print('Warning: NaN value for Hamming distance')
 
     motif_matrix_np = cp.asnumpy(motif_matrix)
+    ppi_matrix_np = cp.asnumpy(ppi_matrix)
+    correlation_matrix_np = cp.asnumpy(correlation_matrix)
     del motif_matrix
     cp._default_memory_pool.free_all_blocks()
     
-    return motif_matrix_np
+    return motif_matrix_np, ppi_matrix_np, correlation_matrix_np

@@ -179,7 +179,7 @@ class Panda(object):
         # =====================================================================
         if self.motif_data is not None:
             print("Running PANDA algorithm ...")
-            self.panda_network = self.panda_loop(
+            self.panda_network, self.ppi_matrix, self.correlation_matrix = self.panda_loop(
                 self.correlation_matrix,
                 self.motif_matrix,
                 self.ppi_matrix,
@@ -546,7 +546,7 @@ class Panda(object):
 
         panda_loop_time = time.time()
         # TODO:This should be using self.correlation. Keeping for retrocompatibility
-        motif_matrix = calc.compute_panda(
+        motif_matrix, ppi_matrix, correlation_matrix = calc.compute_panda(
             correlation_matrix,
             ppi_matrix,
             motif_matrix,
@@ -565,7 +565,7 @@ class Panda(object):
                 {"tf": tfs, "gene": genes, "motif": motif, "force": force}
             )
             # self.export_panda_results = np.column_stack((tfs,genes,motif,force))
-        return motif_matrix
+        return motif_matrix, ppi_matrix, correlation_matrix
 
     def __pearson_results_data_frame(self):
         """ Saves PANDA network in edges format.

@@ -109,7 +109,7 @@ def compute_panda_cpu(
 
     if math.isnan(hamming):
         print('Warning: NaN value for Hamming distance')
-    return motif_matrix
+    return motif_matrix, ppi_matrix, correlation_matrix
 
 
 def compute_panda(
@@ -133,7 +133,7 @@ def compute_panda(
 
     if computing == "cpu":
         # Initialise W and hamming
-        motif_matrix = compute_panda_cpu(
+        motif_matrix, ppi_matrix, correlation_matrix = compute_panda_cpu(
             correlation_matrix,
             ppi_matrix,
             motif_matrix,
@@ -144,7 +144,7 @@ def compute_panda(
     elif computing == "gpu":
         from netZooPy.panda.calculations_gpu import compute_panda_gpu
 
-        motif_matrix = compute_panda_gpu(
+        motif_matrix, ppi_matrix, correlation_matrix = compute_panda_gpu(
             correlation_matrix,
             ppi_matrix,
             motif_matrix,
@@ -153,7 +153,7 @@ def compute_panda(
         )
     else:
         sys.error("ERROR: %s is not an existing computing device" % str(computing))
-    return motif_matrix
+    return motif_matrix, ppi_matrix, correlation_matrix
 
 
 def normalize_network(x):
